@@ -1,9 +1,31 @@
 def generate_array(array) 
   random_stock = Random.new
 
-  array.each do |day|
-    array[array.index(day)] = random_stock.rand(0..100)
+  array.each do |i|
+    array[array.index(i)] = random_stock.rand(0..100)
   end
+
+  array
+end
+
+def checkNumber()
+  n = gets.chomp
+
+  until n.match?(/\A-?\d+(\.\d+)?\z/) do
+    puts "Error, enter numbers only"
+    n = gets.chomp
+  end
+
+  n
+end
+
+def input_number(array)
+  array.each do |i|
+    puts "Enter a number"
+    number = checkNumber()
+
+    array[array.index(i)] = number.to_f
+  end  
 
   array
 end
@@ -22,7 +44,7 @@ def bubble_sort(array)
       print "#{array[j]}, #{array[j + 1]}\n"
     end
   end
-  
+
   array
 end
 
@@ -35,10 +57,14 @@ loop do
 
     case choice 
       when "1"
+        puts "The numbers generated will be between 0 and 100"
         original_array = generate_array(original_array)
+
         break
       when "2"
-        puts "test 2"
+        puts "Enter 10 numbers, you can enter normal numbers, negative numbers, and decimal numbers"
+        original_array = input_number(original_array)
+        
         break
       else
         puts "Error"
